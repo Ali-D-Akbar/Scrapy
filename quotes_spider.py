@@ -5,7 +5,11 @@ class QuotesSpider(scrapy.Spider):
     """
     use this command to run
     scrapy crawl quotes
+    
     displays quotes separately by displaying text, author and tags in 3 different dictionaries
+    
+    use this command to make a JSON file
+    scrapy crawl quotes -o quotes.json
     """
     name = "quotes"
     start_urls = [
