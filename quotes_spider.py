@@ -4,9 +4,17 @@ import scrapy
 class QuotesSpider(scrapy.Spider):
     name = "quotes"
 
+    """
+    use this command to run
+    scrapy crawl quotes -o quotes-humor.json -a tag=humor
+    
+    allows to search only those quotes having 'humor' as one of the tags
+    """
+
     def start_requests(self):
         url = 'http://quotes.toscrape.com/'
         tag = getattr(self, 'tag', None)
+        # if a tag is entered, this will output only the quotes related to that tag
         if tag is not None:
             url = url + 'tag/' + tag
         yield scrapy.Request(url, self.parse)
