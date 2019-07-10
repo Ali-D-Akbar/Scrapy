@@ -2,13 +2,6 @@ import scrapy
 
 
 class QuotesSpider(scrapy.Spider):
-
-    """
-    scrapy shell 'http://quotes.toscrape.com/page/1/'
-    use this command to enter Scrapy Shell and write:
-    response.css('title::text').getall()
-    to get the title text
-    """
     name = "quotes"
     start_urls = [
         'http://quotes.toscrape.com/page/1/',
@@ -16,7 +9,9 @@ class QuotesSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        page = response.url.split("/")[-2]
-        filename = 'quotes-%s.html' % page
-        with open(filename, 'wb') as f:
-            f.write(response.body)
+        for quote in response.css('div.quote'):
+            yield {
+                'text': quote.css('span.text::text').get(),
+                'author': quote.css('small.author::text').get(),
+                'tags': quote.css('div.tags a.tag::text').getall(),
+            }
