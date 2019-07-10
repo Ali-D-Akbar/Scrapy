@@ -2,6 +2,11 @@ import scrapy
 
 
 class QuotesSpider(scrapy.Spider):
+    """
+    use this command to run
+    scrapy crawl quotes
+    displays quotes separately by displaying text, author and tags in 3 different dictionaries
+    """
     name = "quotes"
     start_urls = [
         'http://quotes.toscrape.com/page/1/',
